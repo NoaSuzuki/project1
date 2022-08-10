@@ -58,7 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Object3d* object3d_1 = nullptr;
 	Object3d* object3d_2 = nullptr;
 	Object3d* object3d_3 = nullptr;
-
+	// 汎用機能
+	WinApp* win = nullptr;
 	winApp = new WinApp();
 	winApp->Initialize();
 	//DirectXの初期化
@@ -111,12 +112,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//object3d->SetScale({ 20,20,20 });
 
 
+		// ゲームウィンドウの作成
+	win = new WinApp();
+	win->CreateGameWindow();
 
+	//DirectX初期化処理
+	dxCommon = new DirectXCommon();
+	dxCommon->Initialize(win);
 
 #pragma region//初期化
-	//入力の初期化
-	input = new Input();
-	input->Initialize(winApp);
+	// 入力の初期化
+	input = Input::GetInstance();
+	if (!input->Initialize(win->GetInstance(), win->GetHwnd())) {
+		assert(0);
+		return 1;
+	}
 	//サウンド初期化
 	soundManager = new SoundManager();
 	soundManager->Initialize();
@@ -178,7 +188,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//入力開放
 	delete soundManager;
-	delete input;
 	delete winApp;
 	delete dxCommon;
 	delete object3d_1;

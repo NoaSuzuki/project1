@@ -8,9 +8,11 @@ class WinApp
 public:
 	static const int window_width = 1280;
 	static const int window_height = 720;
+	static const wchar_t windowClassName[];
 	// 汎用機能
 	//WinApp* win = nullptr;
 	//ポインタ置き場
+
 
 public:
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
@@ -19,7 +21,7 @@ public:
 	void Initialize();
 	//更新
 	void Update();
-
+	void CreateGameWindow();
 	//終了
 	void Finalize();
 
@@ -27,7 +29,13 @@ public:
 	bool ProcessMessage();
 	HWND GetHwnd() { return hwnd; }
 	HINSTANCE GetHInstance() { return w.hInstance; }
+	HINSTANCE GetInstance() { return wndClass.hInstance; }
 private:
 	HWND hwnd = nullptr;
 	WNDCLASSEX w{};
+	
+private: // メンバ変数
+	// Window関連
+	HWND hwnd = nullptr;	// ウィンドウハンドル
+	WNDCLASSEX wndClass{};			// ウィンドウクラス
 };
