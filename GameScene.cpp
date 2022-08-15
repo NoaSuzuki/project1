@@ -14,7 +14,7 @@ GameScene::~GameScene()
 {
 
 }
-
+ 
 void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 {
 	// nullptrチェック
