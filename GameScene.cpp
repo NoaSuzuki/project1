@@ -52,6 +52,11 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	// カメラ注視点をセット
 	camera->SetTarget({ 0, 1, 0 });
 	camera->SetDistance(3.0f);
+
+	modelFighter = Model::CreateFromOBJ("enemy_kinoko", true);
+	modelBullet = Model::CreateFromOBJ("enemybullet", true);
+	objFighter = Object3d::Create(modelFighter);
+	objBullet = Object3d::Create(modelSphere);
 }
 
 void GameScene::Update()
